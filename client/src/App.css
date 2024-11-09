@@ -6,13 +6,13 @@
     border-radius: 20px;
     background-color: #ECEDEE;
     margin: 50px 0px;
-    box-shadow: 0px 2px 5px #000000;
+    box-shadow: 0px 2px 5px #797979;
 }
 
 .search--bar{
     padding: 12px;
     border-radius: 20px;
-    box-shadow: 0px 1px 5px #000000;
+    box-shadow: 0px 1px 5px #797979;
     border: 0;
     width: 310px;
 }
@@ -25,11 +25,17 @@
 
 /* task container */
 
-/* .task--container{
+.task--container{
     display: flex;
+    gap: 50px;
 }
 
-.task--sib
+/* task sidebar */
+.task--sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
 .task--status{
     width: 270px;
@@ -38,4 +44,61 @@
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+    border-radius: 14px;
+    box-shadow: 0px 2px 5px #797979;
+}
+
+.add--task{
+    border-radius: 20px;
+    background-color: #0D062D;
+    border: none;
+    color: #FFFFFF;
+    padding: 15px;
+    cursor: pointer;
+}
+
+/* task list */
+
+.task--list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #ECEDEE;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.task--list--heading{
+    color:#0D062D;
+}
+
+/* task item */
+.task--item{
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px #797979;
+    width: 315px;
+    height: 180px;;
+}
+
+.task--header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.task--heading{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.task--description{
+    font-size: 12px;
+    color: #787486;
+}
+
+.task--deadline{
+    margin-top: auto;
+}
