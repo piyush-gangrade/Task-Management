@@ -10,7 +10,7 @@ interface UpdateTask extends NewTask {
     status: string
 }
 
-const baseURL: string = "http://localhost:3000/tasks";
+const baseURL: string = import.meta.env.VITE_BASE_URL + "/tasks";
 
 const getAllTasks = ()=>{
     return axios.get(`${baseURL}`)
