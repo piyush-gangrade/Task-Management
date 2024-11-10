@@ -132,6 +132,8 @@
     background-color: #ECEDEE;
     padding: 20px;
     border-radius: 10px;
+    width: 355px;
+    box-shadow: 0px 2px 5px #797979;
 }
 
 .task--list--heading{

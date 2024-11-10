@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useState } from "react"
 import TaskList from "./TaskList"
 import AddTask from "./AddTask";
 
@@ -14,9 +14,9 @@ export default function TaskContainer(){
                 <div className="task--status">Completed Task</div>
                 <button className="add--task--btn" onClick={()=>{isOpenAddTask(true)}}>Add Task</button>
             </div>
-            <TaskList />
-            <TaskList />
-            <TaskList />
+            <TaskList heading="To Do" status="pending"/>
+            <TaskList heading="In Process" status="in-process"/>
+            <TaskList heading="Completed" status="completed"/>
         </div>
     )
 }

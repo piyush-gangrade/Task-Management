@@ -5,6 +5,7 @@ import { getAllTasks } from "../api";
 interface TaskContextType {
     tasks: Task[];
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+    getTasks: ()=>void
 }
 
 const TaskContext = createContext<TaskContextType | null>(null);
@@ -24,19 +25,20 @@ interface TaskProviderProps {
 export default function TaskProvider({ children }: TaskProviderProps) {
     const [tasks, setTasks] = useState<Task[]>([]);
 
-    useEffect(() => {
-        async function getTasks() {
-            const res = await getAllTasks();
-            console.log(res);
-            if (res?.data?.success) {
-                setTasks(res.data.response);
-            }
+    const getTasks = async()=>{
+        const res = await getAllTasks();
+        console.log(res);
+        if (res?.data?.success) {
+            setTasks(res.data.response);
         }
+    }
+
+    useEffect(() => {
         getTasks();
     }, []);
     console.log(tasks)
     return (
-        <TaskContext.Provider value={{ tasks, setTasks }}>
+        <TaskContext.Provider value={{ tasks, setTasks, getTasks}}>
             {children}
         </TaskContext.Provider>
     );

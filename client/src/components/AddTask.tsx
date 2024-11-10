@@ -1,18 +1,28 @@
 import { useState } from "react";
 import DatePicker from "./DatePicker";
+import { addNewTask } from "../api";
+import { useTask } from "../context/TaskContext";
 
 interface Props {
     close: ()=>void;
 }
 
 export default function AddTask({close}: Props){
+    const {getTasks} = useTask();
     const [isSubmit, setIsSubmit] = useState<Boolean>(false)
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
-    const [date, setDate] = useState<Date>(new Date());
+    const [deadline, setDeadline] = useState<Date>(new Date());
 
-    const handleSubmit = (e: React.FormEvent)=>{
-        e.preventDefault;
+    const handleSubmit = async(e: React.FormEvent)=>{
+        e.preventDefault();
+        if(title && title.trim() && description && description.trim() && deadline){
+            const res = await addNewTask({title, description, deadline});
+            console.log(res);
+            if(res?.data?.success){
+                getTasks();
+            }
+        }
         setIsSubmit(true);
     }
 
@@ -51,7 +61,7 @@ export default function AddTask({close}: Props){
                     >
                     </textarea>
                     <div className="add--task--buttons">
-                        <DatePicker value={date} onChange={setDate}/>
+                        <DatePicker value={deadline} onChange={setDeadline}/>
                         <button className="assign--btn">Assigned to</button>
                     </div>
                 </form>
