@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
 import TaskItem from "./TaskItem"
-import { Task } from "../types/Task"
 import { useTask } from "../context/TaskContext"
 
 interface TaskListType {

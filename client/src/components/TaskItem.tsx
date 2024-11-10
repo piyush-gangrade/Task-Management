@@ -1,6 +1,6 @@
 import { Task } from "../types/Task";
 
-export default function TaskItem({_id, title, description, deadline, status}: Task){
+export default function TaskItem({title, description, deadline}: Task){
     const deadlineDate = new Date(deadline);
 
     return (
