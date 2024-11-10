@@ -4,6 +4,7 @@ interface ITask{
     title: string
     description: string
     deadline: Date
+    status: string
 }
 
 const taskSchema = new Schema({
@@ -18,6 +19,15 @@ const taskSchema = new Schema({
     deadline: {
         type: Date,
         required: true
+    },
+    status: {
+        type: String,
+        enum: [
+            "pending",
+            "in-process",
+            "completed",
+            "expired"
+        ]
     }
 })
 

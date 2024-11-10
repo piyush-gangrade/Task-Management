@@ -4,11 +4,11 @@ export interface TaskRequest {
     deadline: Date
 }
 
-export interface UpdateTaskRequest {
-    id: string, 
+export interface TaskUpdateRequest {
     title: string,
     description: string,
     deadline: Date
+    status: string, 
 }
 
 export interface TaskParams {

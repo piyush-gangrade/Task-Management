@@ -1,11 +1,35 @@
 import { Request, Response } from "express";
-import { TaskRequest, TaskParams, UpdateTaskRequest } from "../utilities/Types/TaskRequest";
+import { TaskRequest, TaskParams, TaskUpdateRequest } from "../utilities/Types/TaskRequest";
 import { Task } from "../models/task.model";
 
 const getAllTasks = async(req: Request, res: Response)=>{
     try{
         const tasks = await Task.find({});
-        res.status(200).json({response: tasks, success: true})
+
+        const date = new Date();
+        const currentDate: number = date.getDate();
+        const currentMonth: number = date.getMonth();
+        const currentYear: number = date.getFullYear();
+
+        tasks.map(async(task) => {
+            const taskDate: number = task.deadline.getDate();
+            const taskMonth: number = task.deadline.getMonth();
+            const taskYear: number = task.deadline.getFullYear();
+            if((taskDate<currentDate) &&
+                (taskMonth<=currentMonth) &&
+                (taskYear<=currentYear) &&
+                (task.status !== "expired"))
+            {
+                await Task.findByIdAndUpdate(
+                    task._id,
+                    {status: "expired"}
+                )
+            }
+        })
+
+        const updatedTasks = await Task.find({});
+
+        res.status(200).json({response: updatedTasks, success: true})
     }
     catch(err){
         console.error("Get all task", err);
@@ -45,7 +69,8 @@ const addNewTask = async(req: Request<{},{},TaskRequest>, res: Response)=>{
         const task = new Task({
             title: title,
             description: description,
-            deadline: deadlineDate
+            deadline: deadlineDate,
+            status: "pending"
         })
         await task.save();
         console.log(task);
@@ -59,11 +84,11 @@ const addNewTask = async(req: Request<{},{},TaskRequest>, res: Response)=>{
     }
 }
 
-const updateTask = async(req: Request<TaskParams,{},TaskRequest>, res: Response)=>{
+const updateTask = async(req: Request<TaskParams,{},TaskUpdateRequest>, res: Response)=>{
     try {
-        const {title, description, deadline} = req.body;
+        const {title, description, deadline, status} = req.body;
         const id = req.params.id;
-        if(!id || !title || !description || !deadline){
+        if(!id || !title || !description || !deadline || !status){
             console.error("Task data is insufficient.")
             res.status(404).json({response: "Task data is insufficient.", success: false})
         }
@@ -75,7 +100,8 @@ const updateTask = async(req: Request<TaskParams,{},TaskRequest>, res: Response)
             {
                 title: title,
                 description: description,
-                deadline: deadlineDate
+                deadline: deadlineDate,
+                status: status
             },
             {new: true}
         );
