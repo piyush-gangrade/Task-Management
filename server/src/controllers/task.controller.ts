@@ -56,7 +56,7 @@ const getTask = async(req: Request<TaskParams>, res: Response)=>{
 
 const addNewTask = async(req: Request<{},{},TaskRequest>, res: Response)=>{
     try{
-        console.log(req.body)
+        // console.log(req.body)
         const title = req.body.title;
         const description = req.body.description;
         const deadline = req.body.deadline;
@@ -73,7 +73,7 @@ const addNewTask = async(req: Request<{},{},TaskRequest>, res: Response)=>{
             status: "pending"
         })
         await task.save();
-        console.log(task);
+        // console.log(task);
 
         res.status(200).json({response: "Task is successfully added.", success: true})
     }
@@ -108,7 +108,7 @@ const updateTask = async(req: Request<TaskParams,{},TaskUpdateRequest>, res: Res
         if(!task){
             res.status(404).json({response: "Task ID is invalid", success: false})
         }
-        console.log(task);
+        // console.log(task);
 
         res.status(200).json({response: "Task is successfully updated.", success: true})
     } 
@@ -127,7 +127,7 @@ const deleteTask = async(req: Request<TaskParams>, res: Response)=>{
 
         const task = await Task.findByIdAndDelete(id);
 
-        console.log(task);
+        // console.log(task);
         res.status(200).json({response: "Task is successfully deleted.", success: true})
 
     }

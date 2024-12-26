@@ -27,7 +27,7 @@ export default function TaskProvider({ children }: TaskProviderProps) {
 
     const getTasks = async()=>{
         const res = await getAllTasks();
-        console.log(res);
+        // console.log(res);
         if (res?.data?.success) {
             setTasks(res.data.response);
         }
@@ -36,7 +36,7 @@ export default function TaskProvider({ children }: TaskProviderProps) {
     useEffect(() => {
         getTasks();
     }, []);
-    console.log(tasks)
+    // console.log(tasks)
     return (
         <TaskContext.Provider value={{ tasks, setTasks, getTasks}}>
             {children}
