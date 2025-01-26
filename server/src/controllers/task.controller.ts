@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TaskRequest, TaskParams, TaskUpdateRequest } from "../utilities/Types/TaskRequest";
+import { TaskRequest, TaskParams, TaskUpdateRequest } from "../Types/TaskRequest";
 import { Task } from "../models/task.model";
 
 const getAllTasks = async(req: Request, res: Response)=>{
