@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import { configKeys } from "../config";
 
 
 export const DBconnect = async()=>{
     try{
-        await mongoose.connect(`${process.env.DB_URL}`);
+        await mongoose.connect(`${configKeys.DB_URL}`);
         console.log("Database connected successfully.")
     }
     catch(error){
