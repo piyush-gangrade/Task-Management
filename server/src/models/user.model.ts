@@ -4,7 +4,7 @@ interface IUser {
     email: string
     username: string
     password: string
-    refreshToken: string
+    refreshToken: string | null
 }
 
 const userSchema = new Schema({
