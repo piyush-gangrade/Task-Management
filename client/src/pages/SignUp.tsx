@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
-import { AuthFormData } from "../../types/Task";
+import { AuthFormData } from "../types/Task";
 import { Id, toast, ToastContainer, TypeOptions } from "react-toastify";
+import { register } from "../api";
+import { redirect } from "react-router-dom";
 
 export default function SignUp(){
     const toastId = useRef<Id>("");
@@ -33,12 +35,43 @@ export default function SignUp(){
         })
     }
 
-    const handleSubmit = (e:React.FormEvent)=>{
+    const handleSubmit = async(e:React.FormEvent)=>{
         e.preventDefault();
         if(formData.password !== formData.confirmPassword){
             terminalToast();
             notify("Confirm Password is not same as Password.", "error")
         }
+
+        if(!formData.email.trim() || !formData.username.trim() || !formData.password){
+            terminalToast();
+            notify("Please enter valid username, email and password.", "error")
+        }
+
+        const userData = {
+            username: formData.username,
+            email: formData.email,
+            password: formData.password
+        }
+
+        try{
+            const res = await register(userData);
+            if(!res.data || !res.data?.success){
+                notify("Server is unavailable", "error");
+                console.log(res);
+                return;
+            }
+            const id = res.data?.response?.id;
+
+            if(id){
+                localStorage.setItem("id", id);
+                redirect("/");
+            }
+        }
+        catch(err){
+            console.log(err);
+            notify("Server is unavailable", "error");
+        }
+        return;
     };
 
     return (

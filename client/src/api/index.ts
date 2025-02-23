@@ -1,4 +1,5 @@
 import axios from "axios";
+import { UserRegister } from "../types/User";
 
 interface NewTask {
     title: string
@@ -11,6 +12,10 @@ interface UpdateTask extends NewTask {
 }
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+
+const register = ({username, email, password}: UserRegister)=>{
+    return axios.post("/auth/register", {username, email, password});
+}
 
 const getAllTasks = ()=>{
     return axios.get("/tasks")
@@ -35,6 +40,7 @@ const deleteTask = (id: string)=>{
 
 
 export {
+    register,
     getAllTasks,
     getTask,
     addNewTask,

@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import LandingPage from './components/pages/LandingPage'
-import SignUp from './components/pages/SignUp'
+import LandingPage from './pages/LandingPage'
+import SignUp from './pages/SignUp'
 
 function App() {
   const router = createBrowserRouter([
